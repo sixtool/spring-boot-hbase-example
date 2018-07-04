@@ -1,5 +1,5 @@
 # spring-boot-hbase-example
-1，搭建hbase环境   
+## 1，搭建hbase环境   
       废话不多说，直接上docker镜像安装，运行，hbase环境搭建完毕，这里就不细写hbase环境如何搭建，docker是个好东西，下面来介绍docker开启hbase环境的
       这里安装启动docker省去，直接上docker命令
 ``` sh
@@ -10,19 +10,19 @@ docker run -d -h myhbase -p 2181:2181 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 
 ```
 简单介绍上述命令参数如下：
 
--d表示后台 
--h 定义容器host 
--p表示端口映射 
-–name 表示容器别名 (我这里命名hbase1.3) 
-harisekhon/hbase是image镜像
+> -d表示后台 
+> -h 定义容器host 
+> -p表示端口映射 
+> –name 表示容器别名 (我这里命名hbase1.3) 
+> harisekhon/hbase是image镜像
 
-2，修改host文件，等会开发要使用域名
+## 2，修改host文件，等会开发要使用域名
 ``` sh
 vim /etc/hosts
 #添加
 127.0.0.1 myhbase 
 ```
-3，直接访问页面http://localhost:16010/master-status，看是否正常
+## 3，直接访问页面http://localhost:16010/master-status，看是否正常
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_54_55.png.jpeg)
 4，进入容器玩一玩hbase shell 命令
 #进入容器
@@ -33,7 +33,7 @@ hbase shell
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_56_16.png.jpeg)
  可以看到hbase正常启动
 
-5，上spring boot 代码测试，连接hbase做 curd操作 演示
+## 5，上spring boot 代码测试，连接hbase做 curd操作 演示
 
 项目结构如下：
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_57_51.png.jpeg)
@@ -177,7 +177,7 @@ public class HelloController {
 }
 ``` 
 
-5，测试接口
+## 5，测试接口
 先来报备设备数据，然后服务器生成一个激活id
 ``` sh
 curl -X GET \
@@ -200,7 +200,7 @@ curl -X GET \
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2014_2_25.png.jpeg)
 
 
-6，遇到的坑   
+## 6，遇到的坑   
 1，hbase发现在查询字段，或添加字段时代码太冗余了，字段多写起来非常吃力，找到org.springframework.data.hadoop.hbase.HbaseTemplate 这个类暂未使用，不知道 如何
 
 2，hbase 数据模型灵活，但对数据字段，rowkey, famliy 初期需要考虑清楚，后期是不容易更改的，简单来说可以看成是redis key -value 使用的，所有key前期一定要考虑全面
