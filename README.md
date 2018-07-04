@@ -1,13 +1,13 @@
 # spring-boot-hbase-example
-1，搭建hbase环境
+1，搭建hbase环境   
       废话不多说，直接上docker镜像安装，运行，hbase环境搭建完毕，这里就不细写hbase环境如何搭建，docker是个好东西，下面来介绍docker开启hbase环境的
-
       这里安装启动docker省去，直接上docker命令
-
+``` sh
 #拉取容器
 docker pull harisekhon/hbase
 #启动容器
 docker run -d -h myhbase -p 2181:2181 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 -p 16000:16000 -p 16010:16010 -p 16201:16201 -p 16301:16301 --name hbase1.3 harisekhon/hbase
+```
 简单介绍上述命令参数如下：
 
 -d表示后台 
@@ -17,9 +17,11 @@ docker run -d -h myhbase -p 2181:2181 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 
 harisekhon/hbase是image镜像
 
 2，修改host文件，等会开发要使用域名
+``` sh
 vim /etc/hosts
 #添加
 127.0.0.1 myhbase 
+```
 3，直接访问页面http://localhost:16010/master-status，看是否正常
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_54_55.png.jpeg)
 4，进入容器玩一玩hbase shell 命令
@@ -29,9 +31,7 @@ docker exec -it hbase1.3 /bin/bash
 hbase shell
 看如下图，哈哈，成功
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_56_16.png.jpeg)
- 
-
-      可以看到hbase正常启动
+ 可以看到hbase正常启动
 
 5，上spring boot 代码测试，连接hbase做 curd操作 演示
 
@@ -40,7 +40,7 @@ hbase shell
  
 
 配置类
-
+``` java
 package com.example.config;
 
 import org.apache.hadoop.conf.Configuration;
@@ -75,8 +75,10 @@ public class Hbase {
     }
 
 }
+```
 controller类
 
+``` java
  package com.example.controller;
 
 import com.example.config.Hbase;
@@ -173,30 +175,30 @@ public class HelloController {
     }
 
 }
-
+``` 
 
 5，测试接口
 先来报备设备数据，然后服务器生成一个激活id
-
+``` sh
 curl -X GET \
 'http://localhost:9898/saveDeviceInfoToHbase?model=A55&chip=8218&mac=1ACDD123433&emmcId=00123423423423423423&barcode=A550-82123-231K-2342342&tcVersion=61023423&systemVersion=18234232' \
 -H 'Cache-Control: no-cache' \
 -H 'Postman-Token: 8448f020-26f1-4a21-a9dc-dc62b37b4b3a'
-
+```
 看到结果 如下：
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2014_1_33.png.jpeg)
 
 
 然后通过这个激活id查询设备信息
-
+``` sh
 curl -X GET \
 'http://localhost:9898/getDeviceInfoHbase?sid=1cac93c999391b345e96adf5ff5d0bae' \
 -H 'Cache-Control: no-cache' \
 -H 'Postman-Token: 4891060c-3d44-4931-a3b6-9e1e1afce3d9'
-
+```
 结果如下：
 ![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2014_2_25.png.jpeg)
-酷开核心服务-消息中心 > spring boot 与 hbase 使用调研报告 > image2018-7-4 14:2:25.png
+
 
 6，遇到的坑   
 1，hbase发现在查询字段，或添加字段时代码太冗余了，字段多写起来非常吃力，找到org.springframework.data.hadoop.hbase.HbaseTemplate 这个类暂未使用，不知道 如何
