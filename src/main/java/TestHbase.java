@@ -131,8 +131,8 @@ public class TestHbase {
     }
 
     public static void main(String[] args) throws Exception {
-        System.setProperty("hadoop.home.dir", "/Users/winfan/Desktop");
-       TestHbase.createTable("coocaa_device","model","mac","chip","emmcId","barcode","tcVersion","systemVersion");
+        System.setProperty("hadoop.home.dir", "/Users/YourName/Desktop");
+       TestHbase.createTable("box_device","model","mac","chip","emmcId","barcode","tcVersion","systemVersion");
         //TestHbase.deleteTable("ota_pre_record");
       //TestHbase.updateTable("ota_pre_record","324b1f27c982ea87XyZf+1502176018+20900","version","check_time","2017-11-08 10:46:34");
       //TestHbase.updateTable("ota_pre_record","324b1f27c982ea87XyZf+1502176018+20900","version","download_time","2017-11-08 14:37:34");
