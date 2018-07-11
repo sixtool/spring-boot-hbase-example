@@ -23,20 +23,20 @@ vim /etc/hosts
 127.0.0.1 myhbase 
 ```
 ## 3，直接访问页面http://localhost:16010/master-status，看是否正常
-![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_54_55.png.jpeg)
+![image](./doc/image2018-7-4%2013_54_55.png.jpeg)
 4，进入容器玩一玩hbase shell 命令
 #进入容器
 docker exec -it hbase1.3 /bin/bash
 #执行hbase命令
 hbase shell
 看如下图，哈哈，成功
-![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_56_16.png.jpeg)
+![image](./doc/image2018-7-4%2013_56_16.png.jpeg)
  可以看到hbase正常启动
 
 ## 5，上spring boot 代码测试，连接hbase做 curd操作 演示
 
 项目结构如下：
-![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2013_57_51.png.jpeg)
+![image](./doc/image2018-7-4%2013_57_51.png.jpeg)
  
 
 配置类
@@ -186,7 +186,7 @@ curl -X GET \
 -H 'Postman-Token: 8448f020-26f1-4a21-a9dc-dc62b37b4b3a'
 ```
 看到结果 如下：
-![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2014_1_33.png.jpeg)
+![image](./doc/image2018-7-4%2014_1_33.png.jpeg)
 
 
 然后通过这个激活id查询设备信息
@@ -197,7 +197,7 @@ curl -X GET \
 -H 'Postman-Token: 4891060c-3d44-4931-a3b6-9e1e1afce3d9'
 ```
 结果如下：
-![image](https://github.com/tanwenliang/attachment/blob/master/spring-boot-hbase-example/image2018-7-4%2014_2_25.png.jpeg)
+![image](./doc/image2018-7-4%2014_2_25.png.jpeg)
 
 
 ## 6，遇到的坑   
